@@ -20,6 +20,11 @@ class TotalsController extends Controller
 
     public function getTotals(Request $request)
     {
+        if (!\Auth::check())
+        {
+            return redirect(route('login'));
+        }
+        
         $scope = $request->input('scope');
 
         switch ($scope) {

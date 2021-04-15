@@ -20,6 +20,11 @@ class HomeController extends Controller
 
     public function index()
     {
+        if (!\Auth::check())
+        {
+            return redirect(route('login'));
+        }
+
         $taskLog = TaskLog::query()
             ->where('user_id', \Auth::user()->id)
             ->where('created_at', '>=', (new DateTime())->format('Y-m-d') . ' 00:00:00')
@@ -35,6 +40,11 @@ class HomeController extends Controller
 
     public function logTime(Request $request)
     {
+        if (!\Auth::check())
+        {
+            return redirect(route('login'));
+        }
+        
         $timeRegex = '/^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/m';
         $timeSpent = $request->input('time-spent');
 

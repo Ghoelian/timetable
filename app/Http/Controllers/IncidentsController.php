@@ -19,6 +19,11 @@ class IncidentsController extends Controller
 
     public function getIncidents()
     {
+        if (!\Auth::check())
+        {
+            return redirect(route('login'));
+        }
+
         $incidents = Incident::query()
             ->where('user_id', \Auth::user()->id)
             ->get();
@@ -32,6 +37,11 @@ class IncidentsController extends Controller
 
     public function postIncident(Request $request)
     {
+        if (!\Auth::check())
+        {
+            return redirect(route('login'));
+        }
+
         $incident = new Incident();
 
         $incident->user_id = \Auth::user()->id;
@@ -46,6 +56,11 @@ class IncidentsController extends Controller
 
     public function getStatuses()
     {
+        if (!\Auth::check())
+        {
+            return redirect(route('login'));
+        }
+
         $statuses = IncidentStatus::query()
             ->where('user_id', \Auth::user()->id)
             ->get();
@@ -55,6 +70,11 @@ class IncidentsController extends Controller
 
     public function postStatus(Request $request)
     {
+        if (!\Auth::check())
+        {
+            return redirect(route('login'));
+        }
+        
         $status = new IncidentStatus();
 
         $status->user_id = \Auth::user()->id;

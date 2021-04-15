@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html />
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -30,10 +30,6 @@
     <link rel="manifest" href="{{ asset('site.webmanifest') }}" />
     <link rel="mask-icon" href="{{ asset('icons/safari-pinned-tab.svg') }}" color="#2b5797" />
     <link rel="shortcut icon" href="{{ asset('icons/favicon.ico') }}" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link rel="stylesheet" href="css/material.css">
 
     @stack('assets')
 

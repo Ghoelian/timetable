@@ -13,12 +13,16 @@
                         href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ \Request::route()->getName() === 'data-entry' ? 'active' : '' }}"
-                        href="{{ route('data-entry') }}">Data Entry</a>
+                    <a class="nav-link {{ \Request::route()->getName() === 'incidents' ? 'active' : '' }}"
+                        href="{{ route('incidents') }}">Incidents</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ \Request::route()->getName() === 'overviews' ? 'active' : '' }}"
-                        href="{{ route('overviews') }}">Overviews</a>
+                    <a class="nav-link {{ \Request::route()->getName() === 'incident-statuses' ? 'active' : '' }}"
+                        href="{{ route('incident-statuses') }}">Incident Statuses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ \Request::route()->getName() === 'totals' ? 'active' : '' }}"
+                        href="{{ route('totals', ['scope' => 'day']) }}">Totals</a>
                 </li>
             </ul>
         @endif
@@ -32,9 +36,7 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <div class="dropdown-item-text">{{ Auth::user()->name }}</div>
                         {{-- <a class="dropdown-item" href="{{ route('user/settings') }}">Settings</a> --}}
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log
                             out</a>

@@ -22,6 +22,7 @@
         <thead>
             <tr>
                 <th scope="col">Incident Number</th>
+                <th scope="col">Description</th>
                 <th scope="col">Time Spent</th>
             </tr>
         </thead>
@@ -29,6 +30,7 @@
             @foreach ($tasks as $incident => $time)
                 <tr>
                     <td>{{ $incident }}</td>
+                    <td>{{ $incident->description }}</td>
                     <td>{{ sprintf("%02d", $time['hours']) . ':' . sprintf("%02d", $time['minutes']) }}</td>
                 </tr>
             @endforeach

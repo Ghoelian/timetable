@@ -50,12 +50,12 @@ class HomeController extends Controller
 
         preg_match($timeRegex, $timeSpent, $timeSpent);
 
-        $timeInMinutes = ((int) $timeSpent[1] * 60) + (int) $timeSpent[2]; // I'm formatting time spent as minutes, instead of seconds, as I don't need it to be that specific
-
         if (count($timeSpent) !== 3)
         {
             return back()->withErrors('Invalid time duration.');
         }
+
+        $timeInMinutes = ((int) $timeSpent[1] * 60) + (int) $timeSpent[2]; // I'm formatting time spent as minutes, instead of seconds, as I don't need it to be that specific
 
         $log = new TaskLog();
 

@@ -683,6 +683,7 @@ class ImportTasks extends Command
 
             $timeMinutes = ((int) $timeArr[1] * 60) + (int) $timeArr[2];
 
+            $taskLog->user_id = 1;
             $taskLog->created_at = $task['date'];
             $taskLog->incident_id = $incident->id;
             $taskLog->time_spent = $timeMinutes;

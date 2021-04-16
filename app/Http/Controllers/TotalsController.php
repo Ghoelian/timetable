@@ -55,7 +55,6 @@ class TotalsController extends Controller
             ->where('created_at', '>=', $min)
             ->where('created_at', '<=', $max)
             ->with('incident')
-            ->orderBy('incident_definitions.incident_number')
             ->get();
 
         $times = [];

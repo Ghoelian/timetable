@@ -16,7 +16,7 @@
                     formData.append('status-id', statusId)
 
                     $.ajax({
-                            url: '{{ route('incident/update/status') }}',
+                            url: '{{ route('incidents/update/status') }}',
                             method: 'POST',
                             data: formData,
                             processData: false,
@@ -28,6 +28,15 @@
                         .fail((error) => {
                             showError(error)
                         })
+                })
+
+                $('.edit-incident').click((e) => {
+                    const incidentId = e.target.id
+                    const description = $(`.incident-description#${incidentId}`).html()
+
+                    $('#incident-id').val(incidentId)
+                    $('#edit-description').text(description)
+                    $('#editIncidentModal').modal('show')
                 })
             })
 
@@ -78,6 +87,37 @@
         </div>
     </div>
 
+    <div class="modal fade" id="editIncidentModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Incident</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form action="{{ route('incidents/update/description') }}" method="POST">
+                    @csrf
+
+                    <input type="number" class="d-none" id="incident-id" name="incident-id" />
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="edit-description" class="col-form-label">Description</label>
+                            <textarea class="form-control" id="edit-description" name="edit-description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <table class="table table-hover table-striped">
         <thead>
             <tr>
@@ -91,7 +131,7 @@
             @foreach ($incidents as $incident)
                 <tr>
                     <td>{{ $incident->incident_number }}</td>
-                    <td>{{ $incident->description }}</td>
+                    <td class="incident-description" id="{{ $incident->id }}">{{ $incident->description }}</td>
                     <td>
                         <select class="form-control col-sm-8 incident-status" id="{{ $incident->id }}"
                             name="incident-status">
@@ -102,7 +142,10 @@
                             @endforeach
                         </select>
                     </td>
-                    <td><button class="btn btn-primary">Edit</button></td>
+                    <td>
+                        <button type="button" class="btn btn-primary edit-incident"
+                            id="{{ $incident->id }}">Edit</button>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

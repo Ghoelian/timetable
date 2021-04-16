@@ -117,4 +117,25 @@ class IncidentsController extends Controller
 
         return response('Status updated.', 200);
     }
+
+    public function updateDescription(Request $request)
+    {
+        $incidentId = $request->input('incident-id');
+
+        $incident = Incident::query()
+            ->where('user_id', \Auth::user()->id)
+            ->where('id', $incidentId)
+            ->first();
+
+        if ($incident === null)
+        {
+            return back()->withErrors('Unknown incident.');
+        }
+
+        $incident->description = $request->input('edit-description');
+
+        $incident->save();
+
+        return back();
+    }
 }

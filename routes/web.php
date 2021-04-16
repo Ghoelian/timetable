@@ -5,10 +5,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
 Route::post('log-time', 'App\Http\Controllers\HomeController@logTime')->name('log-time');
 
-Route::get('incidents', 'App\Http\Controllers\IncidentsController@getIncidents')->name('incidents');
-Route::post('incidents', 'App\Http\Controllers\IncidentsController@postIncident')->name('incidents');
+Route::prefix('incidents')->group(function () {
+    Route::get('/', 'App\Http\Controllers\IncidentsController@getIncidents')->name('incidents');
+    Route::post('/', 'App\Http\Controllers\IncidentsController@postIncident')->name('incidents');
 
-Route::post('incident/update/status', 'App\Http\Controllers\IncidentsController@updateStatus')->name('incident/update/status');
+    Route::post('update/status', 'App\Http\Controllers\IncidentsController@updateStatus')->name('incidents/update/status');
+    Route::post('update/description', 'App\Http\Controllers\IncidentsController@updateDescription')->name('incidents/update/description');
+});
 
 Route::get('incident-status', 'App\Http\Controllers\IncidentsController@getStatuses')->name('incident-statuses');
 Route::post('incident-status', 'App\Http\Controllers\IncidentsController@postStatus')->name('incident-statuses');

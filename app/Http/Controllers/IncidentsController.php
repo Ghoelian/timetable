@@ -74,7 +74,7 @@ class IncidentsController extends Controller
         {
             return redirect(route('login'));
         }
-        
+
         $status = new IncidentStatus();
 
         $status->user_id = \Auth::user()->id;
@@ -84,5 +84,37 @@ class IncidentsController extends Controller
         $status->save();
 
         return back();
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $incidentId = $request->input('incident-id');
+        $statusId = $request->input('status-id');
+
+        $incident = Incident::query()
+            ->where('user_id', \Auth::user()->id)
+            ->where('id', $incidentId)
+            ->first();
+
+        $status = IncidentStatus::query()
+            ->where('user_id', \Auth::user()->id)
+            ->where('id', $statusId)
+            ->first();
+
+        if ($incident === null)
+        {
+            return response('Unknown incident.', 400);
+        }
+
+        if ($status === null)
+        {
+            return response('Unknown incident status.', 400);
+        }
+
+        $incident->status_id = $statusId;
+
+        $incident->save();
+
+        return response('Status updated.', 200);
     }
 }

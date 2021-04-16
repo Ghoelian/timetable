@@ -8,6 +8,8 @@ Route::post('log-time', 'App\Http\Controllers\HomeController@logTime')->name('lo
 Route::get('incidents', 'App\Http\Controllers\IncidentsController@getIncidents')->name('incidents');
 Route::post('incidents', 'App\Http\Controllers\IncidentsController@postIncident')->name('incidents');
 
+Route::post('incident/update/status', 'App\Http\Controllers\IncidentsController@updateStatus')->name('incident/update/status');
+
 Route::get('incident-status', 'App\Http\Controllers\IncidentsController@getStatuses')->name('incident-statuses');
 Route::post('incident-status', 'App\Http\Controllers\IncidentsController@postStatus')->name('incident-statuses');
 

@@ -2,6 +2,38 @@
 
 @section('title', 'Incidents')
 
+    @push('assets')
+        <script>
+            $(document).ready(() => {
+                $('.incident-status').change((e) => {
+                    const incidentId = e.target.id
+                    const statusId = e.target.value
+
+                    let formData = new FormData();
+
+                    formData.append('_token', '{{ csrf_token() }}')
+                    formData.append('incident-id', incidentId)
+                    formData.append('status-id', statusId)
+
+                    $.ajax({
+                            url: '{{ route('incident/update/status') }}',
+                            method: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false
+                        })
+                        .done((result) => {
+                            showSuccess(result)
+                        })
+                        .fail((error) => {
+                            showError(error)
+                        })
+                })
+            })
+
+        </script>
+    @endpush
+
 @section('content')
     <div class="modal fade" id="addIncidentModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -52,6 +84,7 @@
                 <th scope="col">Incident Number</th>
                 <th scope="col">Description</th>
                 <th scope="col">Status</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -60,12 +93,16 @@
                     <td>{{ $incident->incident_number }}</td>
                     <td>{{ $incident->description }}</td>
                     <td>
-                        <select class="form-control col-sm-8" id="incident-status" name="incident-status">
-                            @foreach($statuses as $status)
-                                <option id="{{ $status->id }}" {{ $incident->status->id === $status->id ? 'selected' : '' }}>{{ $status->name }}</option>
+                        <select class="form-control col-sm-8 incident-status" id="{{ $incident->id }}"
+                            name="incident-status">
+                            @foreach ($statuses as $status)
+                                <option value="{{ $status->id }}"
+                                    {{ $incident->status->id === $status->id ? 'selected' : '' }}>{{ $status->name }}
+                                </option>
                             @endforeach
                         </select>
                     </td>
+                    <td><button class="btn btn-primary">Edit</button></td>
                 </tr>
             @endforeach
         </tbody>

@@ -21,7 +21,7 @@
                             <label for="incident" class="col-form-label">Incident</label>
                             <select class="form-control" id="incident" name="incident" required>
                                 @foreach ($incidents as $incident)
-                                    <option value="{{ $incident->id }}">{{ $incident->incident_number }}</option>
+                                    <option value="{{ $incident->id }}">{{ $incident->incident_number }} - {{ $incident->description }}</option>
                                 @endforeach
                             </select>
                         </div>

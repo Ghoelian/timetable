@@ -24,10 +24,14 @@ class TotalsController extends Controller
         {
             return redirect(route('login'));
         }
-        
-        $scope = $request->input('scope');
 
-        switch ($scope) {
+        $totalHours = 0;
+        $totalMinutes = 0;
+
+        $scope = $request->input('scope') ?? 'day';
+
+        switch ($scope)
+        {
             case 'week':
                 $min = (new DateTime())->sub(new DateInterval('P7D'))->format('Y-m-d') . ' 00:00:00';
                 $max = (new DateTime())->format('Y-m-d') . ' 23:59:59';
@@ -52,21 +56,30 @@ class TotalsController extends Controller
             ->where('created_at', '<=', $max)
             ->with('incident')
             ->get();
-            
+
         $times = [];
 
-        foreach($tasks as $task)
-        {   
+        foreach ($tasks as $task)
+        {
             $incident = $times[$task->incident->incident_number] ?? ['hours' => 0, 'minutes' => 0];
 
-            $totalHours = $incident['hours'];
-            $totalMinutes = $incident['minutes']; 
+            $taskHours = $incident['hours'];
+            $taskMinutes = $incident['minutes'];
 
             $hours = $task->getHours();
             $minutes = $task->getMinutes();
 
+            $taskHours += $hours;
+            $taskMinutes += $minutes;
+
             $totalHours += $hours;
             $totalMinutes += $minutes;
+
+            if ($taskMinutes >= 60)
+            {
+                $taskHours++;
+                $taskMinutes -= 60;
+            }
 
             if ($totalMinutes >= 60)
             {
@@ -77,6 +90,6 @@ class TotalsController extends Controller
             $times[$task->incident->incident_number] = ['hours' => $totalHours, 'minutes' => $totalMinutes];
         }
 
-        return view('totals', ['tasks' => $times]);
+        return view('totals', ['tasks' => $times, 'totalHours' => $totalHours, 'totalMinutes' => $totalMinutes, 'scope' => $scope]);
     }
 }

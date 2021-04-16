@@ -25,6 +25,8 @@ class TotalsController extends Controller
             return redirect(route('login'));
         }
 
+        $aggregate = $request->input('aggregate') ?? true;
+
         $totalHours = 0;
         $totalMinutes = 0;
 
@@ -58,39 +60,63 @@ class TotalsController extends Controller
             ->with('incident')
             ->get();
 
-        $times = [];
+        $times = collect();
 
-        foreach ($tasks as $task)
+        if ($aggregate)
         {
-            $incident = $times[$task->incident->incident_number] ?? ['hours' => 0, 'minutes' => 0];
-
-            $taskHours = $incident['hours'];
-            $taskMinutes = $incident['minutes'];
-
-            $hours = $task->getHours();
-            $minutes = $task->getMinutes();
-
-            $taskHours += $hours;
-            $taskMinutes += $minutes;
-
-            $totalHours += $hours;
-            $totalMinutes += $minutes;
-
-            if ($taskMinutes >= 60)
+            foreach ($tasks as $task)
             {
-                $taskHours++;
-                $taskMinutes -= 60;
-            }
+                $incident = $times[$task->incident->incident_number] ?? ['hours' => 0, 'minutes' => 0];
 
-            if ($totalMinutes >= 60)
+                $taskHours = $incident['hours'];
+                $taskMinutes = $incident['minutes'];
+
+                $hours = $task->getHours();
+                $minutes = $task->getMinutes();
+
+                $taskHours += $hours;
+                $taskMinutes += $minutes;
+
+                $totalHours += $hours;
+                $totalMinutes += $minutes;
+
+                if ($taskMinutes >= 60)
+                {
+                    $taskHours++;
+                    $taskMinutes -= 60;
+                }
+
+                if ($totalMinutes >= 60)
+                {
+                    $totalHours++;
+                    $totalMinutes -= 60;
+                }
+
+                $incidentNumber = $task->incident->incident_number;
+
+                $times[$incidentNumber] = ['incident' => ['incident_number' => $task->incident->incident_number], 'hours' => sprintf('%02d', $taskHours), 'minutes' => sprintf('%02d', $taskMinutes), 'description' => $task->incident->description];
+            }
+        }
+        else
+        {
+            $times = $tasks;
+
+            foreach ($times as $time)
             {
-                $totalHours++;
-                $totalMinutes -= 60;
-            }
+                $totalHours += $time->getHours();
+                $totalMinutes += $time->getMinutes();
 
-            $times[$task->incident->incident_number] = ['hours' => $taskHours, 'minutes' => $taskMinutes, 'description' => $task->incident->description];
+                $time->hours = $time->getHours();
+                $time->minutes = $time->getMinutes();
+
+                if ($totalMinutes >= 60)
+                {
+                    $totalHours++;
+                    $totalMinutes -= 60;
+                }
+            }
         }
 
-        return view('totals', ['tasks' => $times, 'totalHours' => $totalHours, 'totalMinutes' => $totalMinutes, 'scope' => $scope]);
+        return view('totals', ['tasks' => $times, 'totalHours' => sprintf('%02d', $totalHours), 'totalMinutes' => sprintf('%02d', $totalMinutes), 'scope' => $scope, 'aggregate' => $aggregate]);
     }
 }

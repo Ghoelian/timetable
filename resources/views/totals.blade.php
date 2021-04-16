@@ -5,18 +5,31 @@
 @section('content')
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link {{ $scope === 'day' ? 'active' : '' }}" href="{{ route('totals', ['scope' => 'day']) }}">Day</a>
+            <a class="nav-link {{ $scope === 'day' ? 'active' : '' }}"
+                href="{{ route('totals', ['scope' => 'day', 'aggregate' => $aggregate]) }}">Day</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ $scope === 'week' ? 'active' : '' }}" href="{{ route('totals', ['scope' => 'week']) }}">Week</a>
+            <a class="nav-link {{ $scope === 'week' ? 'active' : '' }}"
+                href="{{ route('totals', ['scope' => 'week', 'aggregate' => $aggregate]) }}">Week</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ $scope === 'month' ? 'active' : '' }}" href="{{ route('totals', ['scope' => 'month']) }}">Month</a>
+            <a class="nav-link {{ $scope === 'month' ? 'active' : '' }}"
+                href="{{ route('totals', ['scope' => 'month', 'aggregate' => $aggregate]) }}">Month</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ $scope === 'year' ? 'active' : '' }}" href="{{ route('totals', ['scope' => 'year']) }}">Year</a>
+            <a class="nav-link {{ $scope === 'year' ? 'active' : '' }}"
+                href="{{ route('totals', ['scope' => 'year', 'aggregate' => $aggregate]) }}">Year</a>
         </li>
     </ul>
+
+    <form>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="aggregate" name="aggregate"
+                onclick="window.location.replace('{{ route('totals', ['scope' => $scope, 'aggregate' => !$aggregate]) }}')"
+                {{ $aggregate ? 'checked' : '' }} />
+            <label for="aggregate" class="form-check-label">Aggregate</label>
+        </div>
+    </form>
 
     <table class="table table-hover table-striped">
         <thead>
@@ -29,15 +42,15 @@
         <tbody>
             @foreach ($tasks as $incident => $details)
                 <tr>
-                    <td>{{ $incident }}</td>
+                    <td>{{ $details['incident']['incident_number'] }}</td>
                     <td>{{ $details['description'] }}</td>
-                    <td>{{ sprintf("%02d", $details['hours']) . ':' . sprintf("%02d", $details['minutes']) }}</td>
+                    <td>{{ $details['hours'] . ':' . $details['minutes'] }}</td>
                 </tr>
             @endforeach
             <tr class="table-secondary">
                 <th scope="row">Total</th>
                 <td></td>
-                <th scope="row">{{ sprintf("%02d", $totalHours) . ':' . sprintf("%02d", $totalMinutes) }}</th>
+                <th scope="row">{{ $totalHours . ':' . sprintf('%02d', $totalMinutes) }}</th>
             </tr>
         </tbody>
     </table>

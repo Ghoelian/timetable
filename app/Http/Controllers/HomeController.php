@@ -34,8 +34,23 @@ class HomeController extends Controller
         $incidents = Incident::query()
             ->where('user_id', \Auth::user()->id)
             ->get();
-        
-        return view('home', ['tasks' => $taskLog, 'incidents' => $incidents]);
+
+        $totalHours = 0;
+        $totalMinutes = 0;
+
+        foreach ($taskLog as $task)
+        {
+            $totalHours += $task->getHours();
+            $totalMinutes += $task->getMinutes();
+
+            if ($totalMinutes >= 60)
+            {
+                $totalHours++;
+                $totalMinutes -= 60;
+            }
+        }
+
+        return view('home', ['tasks' => $taskLog, 'incidents' => $incidents, 'totalHours' => $totalHours, 'totalMinutes' => $totalMinutes]);
     }
 
     public function logTime(Request $request)
@@ -44,7 +59,7 @@ class HomeController extends Controller
         {
             return redirect(route('login'));
         }
-        
+
         $timeRegex = '/^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/m';
         $timeSpent = $request->input('time-spent');
 

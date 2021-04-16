@@ -21,14 +21,16 @@
                             <label for="incident" class="col-form-label">Incident</label>
                             <select class="form-control" id="incident" name="incident" required>
                                 @foreach ($incidents as $incident)
-                                    <option value="{{ $incident->id }}">{{ $incident->incident_number }} - {{ $incident->description }} ({{ $incident->status->name }})</option>
+                                    <option value="{{ $incident->id }}">{{ $incident->incident_number }} -
+                                        {{ $incident->description }} ({{ $incident->status->name }})</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="time-spent" class="col-form-label">Time Spent</label>
-                            <input type="text" class="form-control" id="time-spent" name="time-spent" placeholder="HH:MM (24h)" required />
+                            <input type="text" class="form-control" id="time-spent" name="time-spent"
+                                placeholder="HH:MM (24h)" required />
                         </div>
 
                         <div class="form-group">
@@ -62,6 +64,11 @@
                     <td>{{ $task->description }}</td>
                 </tr>
             @endforeach
+            <tr class="table-secondary">
+                <th scope="row">Total</th>
+                <th scope="row">{{ sprintf('%02d', $totalHours) . ':' . sprintf('%02d', $totalMinutes) }}</th>
+                <td></td>
+            </tr>
         </tbody>
     </table>
 

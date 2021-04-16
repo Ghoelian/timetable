@@ -22,18 +22,21 @@
         <thead>
             <tr>
                 <th scope="col">Incident Number</th>
+                <th scope="col">Description</th>
                 <th scope="col">Time Spent</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($tasks as $incident => $time)
+            @foreach ($tasks as $incident => $details)
                 <tr>
                     <td>{{ $incident }}</td>
-                    <td>{{ sprintf("%02d", $time['hours']) . ':' . sprintf("%02d", $time['minutes']) }}</td>
+                    <td>{{ $details['description'] }}</td>
+                    <td>{{ sprintf("%02d", $details['hours']) . ':' . sprintf("%02d", $details['minutes']) }}</td>
                 </tr>
             @endforeach
             <tr class="table-secondary">
                 <th scope="row">Total</th>
+                <td></td>
                 <th scope="row">{{ sprintf("%02d", $totalHours) . ':' . sprintf("%02d", $totalMinutes) }}</th>
             </tr>
         </tbody>

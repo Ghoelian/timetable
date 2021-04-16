@@ -59,7 +59,13 @@
                 <tr>
                     <td>{{ $incident->incident_number }}</td>
                     <td>{{ $incident->description }}</td>
-                    <td>{{ $incident->status->name }}</td>
+                    <td>
+                        <select class="form-control" id="incident-status" name="incident-status">
+                            @foreach($statuses as $status)
+                                <option id="{{ $status->id }}" {{ $incident->status->id === $status->id ? 'selected' : '' }}>{{ $status->name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

@@ -32,9 +32,9 @@
                     <td>{{ sprintf("%02d", $time['hours']) . ':' . sprintf("%02d", $time['minutes']) }}</td>
                 </tr>
             @endforeach
-            <tr>
+            <tr class="table-secondary">
                 <th scope="row">Total</th>
-                <td>{{ sprintf("%02d", $totalHours) . ':' . sprintf("%02d", $totalMinutes) }}</td>
+                <th scope="row">{{ sprintf("%02d", $totalHours) . ':' . sprintf("%02d", $totalMinutes) }}</th>
             </tr>
         </tbody>
     </table>

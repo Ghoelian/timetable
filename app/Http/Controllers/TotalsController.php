@@ -87,7 +87,7 @@ class TotalsController extends Controller
                 $totalMinutes -= 60;
             }
 
-            $times[$task->incident->incident_number] = ['hours' => $totalHours, 'minutes' => $totalMinutes];
+            $times[$task->incident->incident_number] = ['hours' => $taskHours, 'minutes' => $taskMinutes];
         }
 
         return view('totals', ['tasks' => $times, 'totalHours' => $totalHours, 'totalMinutes' => $totalMinutes, 'scope' => $scope]);

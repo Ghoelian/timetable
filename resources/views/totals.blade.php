@@ -5,16 +5,16 @@
 @section('content')
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('totals', ['scope' => 'day']) }}">Day</a>
+            <a class="nav-link {{ $scope === 'day' ? 'active' : '' }}" href="{{ route('totals', ['scope' => 'day']) }}">Day</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('totals', ['scope' => 'week']) }}">Week</a>
+            <a class="nav-link {{ $scope === 'week' ? 'active' : '' }}" href="{{ route('totals', ['scope' => 'week']) }}">Week</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('totals', ['scope' => 'month']) }}">Month</a>
+            <a class="nav-link {{ $scope === 'month' ? 'active' : '' }}" href="{{ route('totals', ['scope' => 'month']) }}">Month</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('totals', ['scope' => 'year']) }}">Year</a>
+            <a class="nav-link {{ $scope === 'year' ? 'active' : '' }}" href="{{ route('totals', ['scope' => 'year']) }}">Year</a>
         </li>
     </ul>
 

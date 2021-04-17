@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\UserScope;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -31,6 +32,12 @@ class IncidentStatus extends Model
      */
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'user_id'
     ];
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new UserScope);
+    }
 }

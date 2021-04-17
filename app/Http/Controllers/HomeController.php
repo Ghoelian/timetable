@@ -10,30 +10,14 @@ use Illuminate\Routing\Controller;
 
 class HomeController extends Controller
 {
-    public function __construct()
-    {
-        if (!\Auth::check())
-        {
-            return redirect(route('login'));
-        }
-    }
-
     public function index()
     {
-        if (!\Auth::check())
-        {
-            return redirect(route('login'));
-        }
-
         $taskLog = TaskLog::query()
-            ->where('user_id', \Auth::user()->id)
             ->where('created_at', '>=', (new DateTime())->format('Y-m-d') . ' 00:00:00')
             ->where('created_at', '<=', (new DateTime())->format('Y-m-d') . ' 23:59:59')
             ->get();
 
-        $incidents = Incident::query()
-            ->where('user_id', \Auth::user()->id)
-            ->get();
+        $incidents = Incident::all();
 
         $totalHours = 0;
         $totalMinutes = 0;
@@ -55,11 +39,6 @@ class HomeController extends Controller
 
     public function logTime(Request $request)
     {
-        if (!\Auth::check())
-        {
-            return redirect(route('login'));
-        }
-
         $timeRegex = '/^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/m';
         $timeSpent = $request->input('time-spent');
 

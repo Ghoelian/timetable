@@ -10,21 +10,8 @@ use Illuminate\Routing\Controller;
 
 class TotalsController extends Controller
 {
-    public function __construct()
-    {
-        if (!\Auth::check())
-        {
-            return redirect(route('login'));
-        }
-    }
-
     public function getTotals(Request $request)
     {
-        if (!\Auth::check())
-        {
-            return redirect(route('login'));
-        }
-
         $aggregate = $request->input('aggregate') ?? true;
 
         $totalHours = 0;
@@ -54,7 +41,6 @@ class TotalsController extends Controller
         }
 
         $tasks = TaskLog::query()
-            ->where('user_id', \Auth::user()->id)
             ->where('created_at', '>=', $min)
             ->where('created_at', '<=', $max)
             ->with('incident')

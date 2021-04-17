@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\UserScope;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,6 +46,11 @@ class TaskLog extends Model
     ];
 
     protected $table = 'task_log';
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new UserScope);
+    }
 
     public function incident()
     {

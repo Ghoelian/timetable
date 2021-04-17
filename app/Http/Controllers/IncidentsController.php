@@ -9,39 +9,17 @@ use Illuminate\Routing\Controller;
 
 class IncidentsController extends Controller
 {
-    public function __construct()
-    {
-        if (!\Auth::check())
-        {
-            return redirect(route('login'));
-        }
-    }
-
     public function getIncidents()
     {
-        if (!\Auth::check())
-        {
-            return redirect(route('login'));
-        }
+        $incidents = Incident::all();
 
-        $incidents = Incident::query()
-            ->where('user_id', \Auth::user()->id)
-            ->get();
-
-        $statuses = IncidentStatus::query()
-            ->where('user_id', \Auth::user()->id)
-            ->get();
+        $statuses = IncidentStatus::all();
 
         return view('incidents', ['incidents' => $incidents, 'statuses' => $statuses]);
     }
 
     public function postIncident(Request $request)
     {
-        if (!\Auth::check())
-        {
-            return redirect(route('login'));
-        }
-
         $incident = new Incident();
 
         $incident->user_id = \Auth::user()->id;
@@ -56,25 +34,13 @@ class IncidentsController extends Controller
 
     public function getStatuses()
     {
-        if (!\Auth::check())
-        {
-            return redirect(route('login'));
-        }
-
-        $statuses = IncidentStatus::query()
-            ->where('user_id', \Auth::user()->id)
-            ->get();
+        $statuses = IncidentStatus::all();
 
         return view('incident-statuses', ['statuses' => $statuses]);
     }
 
     public function postStatus(Request $request)
     {
-        if (!\Auth::check())
-        {
-            return redirect(route('login'));
-        }
-
         $status = new IncidentStatus();
 
         $status->user_id = \Auth::user()->id;
@@ -92,12 +58,10 @@ class IncidentsController extends Controller
         $statusId = $request->input('status-id');
 
         $incident = Incident::query()
-            ->where('user_id', \Auth::user()->id)
             ->where('id', $incidentId)
             ->first();
 
         $status = IncidentStatus::query()
-            ->where('user_id', \Auth::user()->id)
             ->where('id', $statusId)
             ->first();
 
@@ -123,7 +87,6 @@ class IncidentsController extends Controller
         $incidentId = $request->input('incident-id');
 
         $incident = Incident::query()
-            ->where('user_id', \Auth::user()->id)
             ->where('id', $incidentId)
             ->first();
 

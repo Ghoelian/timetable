@@ -26,8 +26,12 @@
                 </li>
             </ul>
         @endif
-
+        
         <ul class="navbar-nav ml-auto">
+            <span class="navbar-text">
+                Week {{ (new DateTime())->format('W') }} &nbsp;|
+            </span>
+
             @if (Auth::check())
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"

@@ -17,7 +17,9 @@ class HomeController extends Controller
             ->where('created_at', '<=', (new DateTime())->format('Y-m-d') . ' 23:59:59')
             ->get();
 
-        $incidents = Incident::all();
+        $incidents = Incident::query()
+            ->orderBy('id', 'DESC')
+            ->get();
 
         $totalHours = 0;
         $totalMinutes = 0;

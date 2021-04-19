@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function index()
     {
         $closedStatusId = IncidentStatus::query()
-            ->select(id)
+            ->select('id')
             ->where('name', 'Closed')
             ->first()
             ->id;

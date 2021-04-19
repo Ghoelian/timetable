@@ -26,7 +26,6 @@ class HomeController extends Controller
 
         $incidents = Incident::query()
             ->where('status_id', '<>', $closedStatusId)
-            ->orderBy('created_at', 'DESC')
             ->get();
 
         $totalHours = 0;

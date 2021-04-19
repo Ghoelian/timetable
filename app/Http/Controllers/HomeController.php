@@ -25,7 +25,7 @@ class HomeController extends Controller
             ->get();
 
         $incidents = Incident::query()
-            ->where('status_id' '<>', $closedStatusId)
+            ->where('status_id', '<>', $closedStatusId)
             ->orderedBy('created_at', 'DESC')
             ->get();
 

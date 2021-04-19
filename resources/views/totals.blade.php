@@ -13,6 +13,10 @@
                 href="{{ route('totals', ['scope' => 'week', 'aggregate' => $aggregate]) }}">Week</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link {{ $scope === 'last_week' ? 'active' : '' }}"
+                href="{{ route('totals', ['scope' => 'last_week', 'aggregate' => $aggregate]) }}">Last Week</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link {{ $scope === 'month' ? 'active' : '' }}"
                 href="{{ route('totals', ['scope' => 'month', 'aggregate' => $aggregate]) }}">Month</a>
         </li>

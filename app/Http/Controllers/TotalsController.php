@@ -19,24 +19,29 @@ class TotalsController extends Controller
 
         $scope = $request->input('scope') ?? 'day';
 
+        $today = new DateTime();
+
         switch ($scope)
         {
             case 'week':
-                $min = (new DateTime())->sub(new DateInterval('P' . ((new DateTime())->format('w') - 1) . 'D'))->format('Y-m-d') . ' 00:00:00';
-                $max = (new DateTime())->format('Y-m-d') . ' 23:59:59';
+                $min = (new DateTime())->setISODate($today->format('Y'), $today->format('W'), 0)->format('Y-m-d') . ' 00:00:00';
+                $max = $today->format('Y-m-d') . ' 23:59:59';
+                break;
+            case 'last_week':
+                $min = (new DateTime())->setISODate($today->format('Y'), $today->format('W')-1, 0)->format('Y-m-d') . ' 00:00:00';
+                $max = (new DateTime())->setISODate($today->format('Y'), $today->format('W')-1, 6)->format('Y-m-d') . ' 23:59:59';
                 break;
             case 'month':
-                $min = (new DateTime())->sub(new DateInterval('P' . ((new DateTime())->format('j') - 1) . 'D'))->format('Y-m-d') . ' 00:00:00';
-                \Log::debug(((new DateTime())->format('m') - 1));
-                $max = (new DateTime())->format('Y-m-d') . ' 23:59:59';
+                $min = (new DateTime())->sub(new DateInterval('P' . ($today->format('j') - 1) . 'D'))->format('Y-m-d') . ' 00:00:00';
+                $max = $today->format('Y-m-d') . ' 23:59:59';
                 break;
             case 'year':
-                $min = (new DateTime())->sub(new DateInterval('P' . ((new DateTime())->format('z') - 1) . 'D'))->format('Y-m-d') . ' 00:00:00';
-                $max = (new DateTime())->format('Y-m-d') . ' 23:59:59';
+                $min = (new DateTime())->sub(new DateInterval('P' . ($today->format('z') - 1) . 'D'))->format('Y-m-d') . ' 00:00:00';
+                $max = $today->format('Y-m-d') . ' 23:59:59';
                 break;
             default:
-                $min = (new DateTime())->format('Y-m-d') . ' 00:00:00';
-                $max = (new DateTime())->format('Y-m-d') . ' 23:59:59';
+                $min = $today->format('Y-m-d') . ' 00:00:00';
+                $max = $today->format('Y-m-d') . ' 23:59:59';
                 break;
         }
 

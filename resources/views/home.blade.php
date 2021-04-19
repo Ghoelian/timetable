@@ -52,22 +52,22 @@
         <thead>
             <tr>
                 <th scope="col">Incident Number</th>
-                <th scope="col">Time</th>
                 <th scope="col">Description</th>
+                <th scope="col">Time</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($tasks as $task)
                 <tr>
                     <td>{{ $task->incident->incident_number }}</td>
-                    <td>{{ $task->getTime() }}</td>
                     <td>{{ $task->description }}</td>
+                    <td>{{ $task->getTime() }}</td>
                 </tr>
             @endforeach
             <tr class="table-secondary">
                 <th scope="row">Total</th>
-                <th scope="row">{{ sprintf('%02d', $totalHours) . ':' . sprintf('%02d', $totalMinutes) }}</th>
                 <td></td>
+                <th scope="row">{{ sprintf('%02d', $totalHours) . ':' . sprintf('%02d', $totalMinutes) }}</th>
             </tr>
         </tbody>
     </table>

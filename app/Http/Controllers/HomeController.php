@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Incident;
 use App\Models\TaskLog;
+use App\Models\IncidentStatus;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -12,12 +13,21 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $closedStatusId = IncidentStatus::query()
+            ->select(id)
+            ->where('name', 'Closed')
+            ->first()
+            ->id;
+
         $taskLog = TaskLog::query()
             ->where('created_at', '>=', (new DateTime())->format('Y-m-d') . ' 00:00:00')
             ->where('created_at', '<=', (new DateTime())->format('Y-m-d') . ' 23:59:59')
             ->get();
 
-        $incidents = Incident::all();
+        $incidents = Incident::query()
+            ->where('status_id' '<>', $closedStatusId)
+            ->orderedBy('created_at', 'DESC')
+            ->get();
 
         $totalHours = 0;
         $totalMinutes = 0;

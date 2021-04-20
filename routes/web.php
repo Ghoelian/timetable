@@ -19,13 +19,18 @@ Route::middleware(['loggedin'])->group(function () {
     Route::post('incident-status', 'App\Http\Controllers\IncidentsController@postStatus')->name('incident-statuses');
 
     Route::get('totals', 'App\Http\Controllers\TotalsController@getTotals')->name('totals');
+    Route::post('totals/send', 'App\Http\Controllers\TotalsController@sendTotals')->name('totals/send');
+    // Route::get('charts', 'App\Http\Controllers\ChartsController@getCharts')->name('charts');
 
     Route::post('logout', 'App\Http\Controllers\AuthController@logout')->name('logout');
+
+    Route::prefix('user')->group(function () {
+        Route::get('contacts', 'App\Http\Controllers\UsersController@getContacts')->name('user/contacts');
+
+        Route::post('contacts/add', 'App\Http\Controllers\UsersController@addContact')->name('user/contacts/add');
+        Route::post('contacts/toggle', 'App\Http\Controllers\UsersController@toggleContact')->name('user/contacts/toggle');
+    });
 });
 
 Route::get('login', 'App\Http\Controllers\AuthController@getLogin')->name('login');
-Route::get('register', 'App\Http\Controllers\AuthController@getRegister')->name('register');
-
-Route::post('login', 'App\Http\Controllers\AuthController@postLogin')->name('registloginer');
-Route::post('logout', 'App\Http\Controllers\AuthController@logout')->name('logout');
-Route::post('register', 'App\Http\Controllers\AuthController@postRegister')->name('register');
+Route::post('login', 'App\Http\Controllers\AuthController@postLogin')->name('login');

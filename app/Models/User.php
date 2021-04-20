@@ -33,6 +33,10 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Contact[] $contacts
+ * @property-read int|null $contacts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TaskLog[] $tasks
+ * @property-read int|null $tasks_count
  */
 class User extends Authenticatable
 {
@@ -67,4 +71,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class, 'user_id', 'id');
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(TaskLog::class, 'user_id', 'id');
+    }
 }

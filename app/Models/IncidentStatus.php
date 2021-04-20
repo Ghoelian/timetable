@@ -36,6 +36,8 @@ class IncidentStatus extends Model
         'user_id'
     ];
 
+    protected $table = 'incident_statuses';
+
     protected static function booted()
     {
         static::addGlobalScope(new UserScope);

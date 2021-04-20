@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereUserId($value)
  * @mixin \Eloquent
+ * @property int $enabled
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereEnabled($value)
  */
 class Contact extends Model
 {

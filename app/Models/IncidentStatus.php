@@ -20,6 +20,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|IncidentStatus whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|IncidentStatus whereUserId($value)
  * @mixin \Eloquent
+ * @property int|null $position
+ * @method static \Illuminate\Database\Eloquent\Builder|IncidentStatus wherePosition($value)
  */
 class IncidentStatus extends Model
 {

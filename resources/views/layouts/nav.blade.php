@@ -24,6 +24,10 @@
                     <a class="nav-link {{ \Request::route()->getName() === 'totals' ? 'active' : '' }}"
                         href="{{ route('totals', ['scope' => 'day']) }}">Totals</a>
                 </li>
+                {{-- <li class="nav-item">
+                    <a class="nav-link {{ \Request::route()->getName() === 'charts' ? 'active' : '' }}"
+                        href="{{ route('charts') }}">Charts</a>
+                </li> --}}
             </ul>
         @endif
         
@@ -40,7 +44,9 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        {{-- <a class="dropdown-item" href="{{ route('user/settings') }}">Settings</a> --}}
+                        <a class="dropdown-item" href="{{ route('user/contacts') }}">Contacts</a>
+                        <a class="dropdown-item" href="{{ route('user/settings') }}">Settings</a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log
                             out</a>
@@ -55,12 +61,6 @@
                     <a class="nav-link {{ \Request::route()->getName() === 'login' ? 'active' : '' }}"
                         href="{{ route('login') }}">
                         Log in
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ \Request::route()->getName() === 'register' ? 'active' : '' }}"
-                        href="{{ route('register') }}">
-                        Register
                     </a>
                 </li>
             @endif

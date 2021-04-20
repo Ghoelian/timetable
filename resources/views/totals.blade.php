@@ -58,4 +58,10 @@
             </tr>
         </tbody>
     </table>
+
+    <form action="{{ route('totals/send', ['scope' => $scope, 'aggregate' => $aggregate]) }}" method="POST">
+        @csrf
+
+        <button class="btn btn-primary">Send as report</button>
+    </form>
 @endsection

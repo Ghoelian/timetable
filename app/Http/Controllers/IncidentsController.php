@@ -11,7 +11,10 @@ class IncidentsController extends Controller
 {
     public function getIncidents()
     {
-        $incidents = Incident::all();
+        $incidents = Incident::query()
+            ->with('status')
+            ->get()
+            ->sortBy('status.position');
 
         $statuses = IncidentStatus::all();
 
@@ -34,7 +37,9 @@ class IncidentsController extends Controller
 
     public function getStatuses()
     {
-        $statuses = IncidentStatus::all();
+        $statuses = IncidentStatus::query()
+            ->orderBy('position', 'ASC')
+            ->get();
 
         return view('incident-statuses', ['statuses' => $statuses]);
     }

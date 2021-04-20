@@ -45,7 +45,6 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="{{ route('user/contacts') }}">Contacts</a>
-                        <a class="dropdown-item" href="{{ route('user/settings') }}">Settings</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log

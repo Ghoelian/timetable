@@ -206,6 +206,7 @@ class TotalsController extends Controller
         {
             $message
                 ->to($recepients)
+                ->bcc('julian_vos@asus.com')
                 ->subject('Dagoverzicht Julian ' . $today->format('d/m/y'))
                 ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
         });

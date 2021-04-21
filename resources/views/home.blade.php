@@ -65,7 +65,7 @@
                 </tr>
             @endforeach
             <tr class="table-secondary">
-                <th scope="row">Total</th>
+                <th scope="row">Total ({{ count($tasks) }})</th>
                 <td></td>
                 <th scope="row">{{ sprintf('%02d', $totalHours) . ':' . sprintf('%02d', $totalMinutes) }}</th>
             </tr>

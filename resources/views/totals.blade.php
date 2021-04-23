@@ -24,6 +24,10 @@
             <a class="nav-link {{ $scope === 'year' ? 'active' : '' }}"
                 href="{{ route('totals', ['scope' => 'year', 'aggregate' => $aggregate]) }}">Year</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ $scope === 'all_time' ? 'active' : '' }}"
+                href="{{ route('totals', ['scope' => 'all_time', 'aggregate' => $aggregate]) }}">All Time</a>
+        </li>
     </ul>
 
     <form>

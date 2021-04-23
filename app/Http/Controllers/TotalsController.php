@@ -41,6 +41,10 @@ class TotalsController extends Controller
                 $min = (new DateTime())->sub(new DateInterval('P' . ($today->format('z') - 1) . 'D'))->format('Y-m-d') . ' 00:00:00';
                 $max = $today->format('Y-m-d') . ' 23:59:59';
                 break;
+            case 'all_time':
+                $min = '1000-01-01 00:00:00';
+                $max = '9999-12-31 23:59:59';
+                break;
             default:
                 $min = $today->format('Y-m-d') . ' 00:00:00';
                 $max = $today->format('Y-m-d') . ' 23:59:59';

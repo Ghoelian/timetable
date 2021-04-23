@@ -50,7 +50,11 @@
         <tbody>
             @foreach ($tasks as $incident => $details)
                 <tr>
-                    <td>{{ $details['incident']['incident_number'] }}</td>
+                    @if ($details['incident']['incident_number'] !== 'Miscellaneous')
+                        <td><a href="https://itsm.asus.com/apps/#/IncidentConsoleDetail/{{ $details['incident']['incident_number'] }}">{{ $details['incident']['incident_number'] }}</a></td>
+                    @else
+                        <td>{{ $details['incident']['incident_number'] }}</td>
+                    @endif
                     <td>{{ $details['description'] }}</td>
                     <td>{{ $details['hours'] . ':' . $details['minutes'] }}</td>
                 </tr>

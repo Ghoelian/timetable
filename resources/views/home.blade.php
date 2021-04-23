@@ -60,7 +60,7 @@
             @foreach ($tasks as $task)
                 <tr>
                     @if ($task->incident->incident_number === 'Miscellaneous')
-                        <td><a href="https://itsm.asus.com/apps/#/IncidentConsoleDetail/{{ $task->incident->incident_number }}">{{ $task->incident->incident_number }}</td>
+                        <td><a href="https://itsm.asus.com/apps/#/IncidentConsoleDetail/{{ $task->incident->incident_number }}">{{ $task->incident->incident_number }}</a></td>
                     @else
                         <td>{{ $task->incident->incident_number }}</td>
                     @endif

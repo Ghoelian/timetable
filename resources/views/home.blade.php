@@ -59,7 +59,11 @@
         <tbody>
             @foreach ($tasks as $task)
                 <tr>
-                    <td>{{ $task->incident->incident_number }}</td>
+                    @if ($task->incident->incident_number === 'Miscellaneous')
+                        <td><a href="https://itsm.asus.com/apps/#/IncidentConsoleDetail/{{ $task->incident->incident_number }}">{{ $task->incident->incident_number }}</td>
+                    @else
+                        <td>{{ $task->incident->incident_number }}</td>
+                    @endif
                     <td>{{ $task->description }}</td>
                     <td>{{ $task->getTime() }}</td>
                 </tr>

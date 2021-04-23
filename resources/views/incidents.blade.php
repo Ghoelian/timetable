@@ -130,7 +130,11 @@
         <tbody>
             @foreach ($incidents as $incident)
                 <tr>
-                    <td>{{ $incident->incident_number }}</td>
+                    @if ($incident->incident_number !== 'Miscellaneous')
+                        <td><a href="https://itsm.asus.com/apps/#/IncidentConsoleDetail/{{ $incident->incident_number }}">{{ $incident->incident_number }}</a></td>
+                    @else
+                        <td>{{ $incident->incident_number }}</td>
+                    @endif
                     <td class="incident-description" id="{{ $incident->id }}">{{ $incident->description }}</td>
                     <td>
                         <select class="form-control col-sm-8 incident-status" id="{{ $incident->id }}"

@@ -38,6 +38,12 @@
             <label for="aggregate" class="form-check-label">Aggregate</label>
         </div>
     </form>
+    
+    <form action="{{ route('totals/send', ['scope' => $scope, 'aggregate' => $aggregate]) }}" method="POST">
+        @csrf
+
+        <button class="btn btn-primary float-right">Send as report</button>
+    </form>
 
     <table class="table table-hover table-striped">
         <thead>
@@ -66,10 +72,4 @@
             </tr>
         </tbody>
     </table>
-
-    <form action="{{ route('totals/send', ['scope' => $scope, 'aggregate' => $aggregate]) }}" method="POST">
-        @csrf
-
-        <button class="btn btn-primary">Send as report</button>
-    </form>
 @endsection

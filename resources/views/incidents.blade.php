@@ -118,7 +118,7 @@
         </div>
     </div>
     
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addIncidentModal">Add Incident</button>
+    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#addIncidentModal">Add Incident</button>
 
     <table class="table table-hover table-striped">
         <thead>

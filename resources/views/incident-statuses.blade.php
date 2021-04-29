@@ -37,7 +37,7 @@
         </div>
     </div>
     
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStatusModal">Add Incident Status</button>
+    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#addStatusModal">Add Incident Status</button>
 
     <table class="table table-hover table-striped">
         <thead>

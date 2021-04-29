@@ -54,6 +54,11 @@
             </tr>
         </thead>
         <tbody>
+            <tr class="table-secondary">
+                <th scope="row">Total ({{ count($tasks) }})</th>
+                <td></td>
+                <th scope="row">{{ $totalHours . ':' . sprintf('%02d', $totalMinutes) }}</th>
+            </tr>
             @foreach ($tasks as $incident => $details)
                 <tr>
                     @if ($details['incident']['incident_number'] !== 'Miscellaneous')
@@ -65,11 +70,6 @@
                     <td>{{ $details['hours'] . ':' . $details['minutes'] }}</td>
                 </tr>
             @endforeach
-            <tr class="table-secondary">
-                <th scope="row">Total ({{ count($tasks) }})</th>
-                <td></td>
-                <th scope="row">{{ $totalHours . ':' . sprintf('%02d', $totalMinutes) }}</th>
-            </tr>
         </tbody>
     </table>
 @endsection

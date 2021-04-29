@@ -30,7 +30,7 @@
         </li>
     </ul>
 
-    <form>
+    <form class="float-left">
         <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="aggregate" name="aggregate"
                 onclick="window.location.replace('{{ route('totals', ['scope' => $scope, 'aggregate' => !$aggregate]) }}')"
@@ -39,10 +39,10 @@
         </div>
     </form>
     
-    <form action="{{ route('totals/send', ['scope' => $scope, 'aggregate' => $aggregate]) }}" method="POST">
+    <form class="float-right" action="{{ route('totals/send', ['scope' => $scope, 'aggregate' => $aggregate]) }}" method="POST">
         @csrf
 
-        <button class="btn btn-primary float-right">Send as report</button>
+        <button class="btn btn-primary">Send as report</button>
     </form>
 
     <table class="table table-hover table-striped">

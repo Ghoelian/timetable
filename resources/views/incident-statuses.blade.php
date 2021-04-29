@@ -36,6 +36,8 @@
             </div>
         </div>
     </div>
+    
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStatusModal">Add Incident Status</button>
 
     <table class="table table-hover table-striped">
         <thead>
@@ -53,6 +55,4 @@
             @endforeach
         </tbody>
     </table>
-
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStatusModal">Add Incident Status</button>
 @endsection

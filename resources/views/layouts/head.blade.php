@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <title>@yield('title')</title>
+    <title>@yield('title') - Timetable</title>
 
     <meta charset="utf-8" />
     <meta name="description" content="Time tracking" />

@@ -10,7 +10,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link {{ \Request::route()->getName() === 'home' ? 'active' : '' }}"
-                        href="{{ route('home') }}">Home</a>
+                        href="{{ route('home') }}">Log Time</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ \Request::route()->getName() === 'incidents' ? 'active' : '' }}"

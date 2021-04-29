@@ -1,6 +1,6 @@
 @extends('layouts.head')
 
-@section('title', 'Home')
+@section('title', 'Log Time')
 
 @section('content')
     <div class="modal fade" id="logTimeModal" tabindex="-1" role="dialog">
@@ -48,7 +48,7 @@
         </div>
     </div>
     
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#logTimeModal">Log Time</button>
+    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#logTimeModal">Log Time</button>
 
     <table class="table table-hover table-striped">
         <thead>

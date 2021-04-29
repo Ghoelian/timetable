@@ -47,6 +47,8 @@
             </div>
         </div>
     </div>
+    
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#logTimeModal">Log Time</button>
 
     <table class="table table-hover table-striped">
         <thead>
@@ -75,6 +77,4 @@
             </tr>
         </tbody>
     </table>
-
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#logTimeModal">Log Time</button>
 @endsection

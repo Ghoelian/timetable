@@ -3,6 +3,32 @@
 @section('title', 'Totals')
 
 @section('content')
+<div class="modal fade" id="sendReportModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form class="float-right" action="{{ route('totals/send', ['scope' => $scope, 'aggregate' => $aggregate]) }}" method="POST">
+                    @csrf
+                    
+                    <div class="modal-header">
+                        <h5 class="modal-title">Log Time</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <iframe src="https://vlipsy.com/embed/XiTsJJTW?loop=1&sharing=0" width="640" height="360" frameborder="0"></iframe>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Send</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link {{ $scope === 'day' ? 'active' : '' }}"
@@ -38,12 +64,8 @@
             <label for="aggregate" class="form-check-label">Aggregate</label>
         </div>
     </form>
-    
-    <form class="float-right" action="{{ route('totals/send', ['scope' => $scope, 'aggregate' => $aggregate]) }}" method="POST">
-        @csrf
 
-        <button class="btn btn-primary">Send as report</button>
-    </form>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sendReportModal">Send as report</button>
 
     <table class="table table-hover table-striped">
         <thead>

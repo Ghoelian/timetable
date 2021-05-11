@@ -17,7 +17,7 @@
                     </div>
                     
                     <div class="modal-body">
-                        <iframe src="https://vlipsy.com/embed/XiTsJJTW?loop=1&sharing=0" width="640" height="360" frameborder="0"></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/BLikP6BDH5w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
 
                     <div class="modal-footer">

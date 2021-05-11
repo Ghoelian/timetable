@@ -65,7 +65,7 @@
         </div>
     </form>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sendReportModal">Send as report</button>
+    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#sendReportModal">Send as report</button>
 
     <table class="table table-hover table-striped">
         <thead>

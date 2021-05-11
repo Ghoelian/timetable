@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="modal fade" id="sendReportModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <form class="float-right" action="{{ route('totals/send', ['scope' => $scope, 'aggregate' => $aggregate]) }}" method="POST">
                     @csrf

@@ -3,21 +3,23 @@
 @section('title', 'Totals')
 
 @section('content')
-<div class="modal fade" id="sendReportModal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="sendReportModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <form class="float-right" action="{{ route('totals/send', ['scope' => $scope, 'aggregate' => $aggregate]) }}" method="POST">
+                <form class="float-right"
+                    action="{{ route('totals/send', ['scope' => $scope, 'aggregate' => $aggregate]) }}" method="POST">
                     @csrf
-                    
+
                     <div class="modal-header">
                         <h5 class="modal-title">Log Time</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    
+
                     <div class="modal-body">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/BLikP6BDH5w?autoplay=1&mute=1" frameborder="0"></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/BLikP6BDH5w?autoplay=1&mute=1"
+                            frameborder="0"></iframe>
                     </div>
 
                     <div class="modal-footer">
@@ -28,7 +30,7 @@
             </div>
         </div>
     </div>
-    
+
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link {{ $scope === 'day' ? 'active' : '' }}"
@@ -54,18 +56,46 @@
             <a class="nav-link {{ $scope === 'all_time' ? 'active' : '' }}"
                 href="{{ route('totals', ['scope' => 'all_time', 'aggregate' => $aggregate]) }}">All Time</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ $scope === 'custom' ? 'active' : '' }}"
+                href="{{ route('totals', ['scope' => 'custom', 'aggregate' => $aggregate]) }}">Custom</a>
+        </li>
     </ul>
 
-    <form class="float-left">
+    <form method="GET" class="float-left form-inline">
+        <input type="text" class="d-none" name="scope" value="{{ $scope }}"/>
         <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="aggregate" name="aggregate"
                 onclick="window.location.replace('{{ route('totals', ['scope' => $scope, 'aggregate' => !$aggregate]) }}')"
                 {{ $aggregate ? 'checked' : '' }} />
             <label for="aggregate" class="form-check-label">Aggregate</label>
         </div>
+
+        @if ($scope === 'custom')
+            <div class="form-group ml-4">
+                <label for="from">From</label>
+            </div>
+
+            <div class="form-group ml-2">
+                <input type="date" class="form-control" id="from" name="from" value="{{ $from }}" />
+            </div>
+
+            <div class="form-group ml-4">
+                <label for="to">To</label>
+            </div>
+
+            <div class="form-group ml-2">
+                <input type="date" class="form-control" id="to" name="to" value="{{ $to }}" />
+            </div>
+
+            <div class="form-group ml-4">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        @endif
     </form>
 
-    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#sendReportModal">Send as report</button>
+    <button type="submit" class="btn btn-primary float-right" data-toggle="modal" data-target="#sendReportModal">Send as
+        report</button>
 
     <table class="table table-hover table-striped">
         <thead>
@@ -84,7 +114,9 @@
             @foreach ($tasks as $incident => $details)
                 <tr>
                     @if ($details['incident']['incident_number'] !== 'Miscellaneous')
-                        <td><a href="https://itsm.asus.com/apps/#/IncidentConsoleDetail/{{ $details['incident']['incident_number'] }}">{{ $details['incident']['incident_number'] }}</a></td>
+                        <td><a
+                                href="https://itsm.asus.com/apps/#/IncidentConsoleDetail/{{ $details['incident']['incident_number'] }}">{{ $details['incident']['incident_number'] }}</a>
+                        </td>
                     @else
                         <td>{{ $details['incident']['incident_number'] }}</td>
                     @endif

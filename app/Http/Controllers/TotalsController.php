@@ -23,6 +23,9 @@ class TotalsController extends Controller
 
         $today = new DateTime();
 
+        $from = $request->input('from');
+        $to = $request->input('to');
+
         switch ($scope)
         {
             case 'week':
@@ -44,6 +47,10 @@ class TotalsController extends Controller
             case 'all_time':
                 $min = '1000-01-01 00:00:00';
                 $max = '9999-12-31 23:59:59';
+                break;
+            case 'custom':
+                $min = $from . ' 00:00:00';
+                $max = $to . ' 23:59:59';
                 break;
             default:
                 $min = $today->format('Y-m-d') . ' 00:00:00';
@@ -114,7 +121,7 @@ class TotalsController extends Controller
             }
         }
 
-        return view('totals', ['tasks' => $times, 'totalHours' => sprintf('%02d', $totalHours), 'totalMinutes' => sprintf('%02d', $totalMinutes), 'scope' => $scope, 'aggregate' => $aggregate]);
+        return view('totals', ['tasks' => $times, 'totalHours' => sprintf('%02d', $totalHours), 'totalMinutes' => sprintf('%02d', $totalMinutes), 'scope' => $scope, 'aggregate' => $aggregate, 'from' => $from, 'to' => $to]);
     }
 
     public function sendTotals(Request $request)

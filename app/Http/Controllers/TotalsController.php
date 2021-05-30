@@ -14,7 +14,7 @@ class TotalsController extends Controller
 {
     public function getTotals(Request $request)
     {
-        $aggregate = $request->input('aggregate') ?? true;
+        $aggregate = $request->input('aggregate') ?? false;
 
         $totalHours = 0;
         $totalMinutes = 0;
@@ -28,18 +28,22 @@ class TotalsController extends Controller
 
         switch ($scope)
         {
+            // Some whacky calculations to get the first day of the current week,
             case 'week':
                 $min = (new DateTime())->setISODate($today->format('Y'), $today->format('W'), 0)->format('Y-m-d') . ' 00:00:00';
                 $max = $today->format('Y-m-d') . ' 23:59:59';
                 break;
+            // the first day of the previous week,
             case 'last_week':
                 $min = (new DateTime())->setISODate($today->format('Y'), $today->format('W') - 1, 0)->format('Y-m-d') . ' 00:00:00';
                 $max = (new DateTime())->setISODate($today->format('Y'), $today->format('W') - 1, 6)->format('Y-m-d') . ' 23:59:59';
                 break;
+            // the first day of the current month,
             case 'month':
                 $min = (new DateTime())->sub(new DateInterval('P' . ($today->format('j') - 1) . 'D'))->format('Y-m-d') . ' 00:00:00';
                 $max = $today->format('Y-m-d') . ' 23:59:59';
                 break;
+            // and the first day of the current year
             case 'year':
                 $min = (new DateTime())->sub(new DateInterval('P' . ($today->format('z') - 1) . 'D'))->format('Y-m-d') . ' 00:00:00';
                 $max = $today->format('Y-m-d') . ' 23:59:59';
@@ -98,7 +102,9 @@ class TotalsController extends Controller
 
                 $incidentNumber = $task->incident->incident_number;
 
-                $times[$incidentNumber] = ['incident' => ['incident_number' => $task->incident->incident_number], 'hours' => sprintf('%02d', $taskHours), 'minutes' => sprintf('%02d', $taskMinutes), 'description' => $task->incident->description];
+                $incidentTasks = $tasks->where('incident_id', $task->incident->id);
+
+                $times[$incidentNumber] = ['incident' => ['incident_number' => $task->incident->incident_number], 'hours' => sprintf('%02d', $taskHours), 'minutes' => sprintf('%02d', $taskMinutes), 'description' => $task->incident->description, 'tasks' => $incidentTasks];
             }
         }
         else

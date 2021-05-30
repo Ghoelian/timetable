@@ -63,10 +63,10 @@
     </ul>
 
     <form method="GET" class="float-left form-inline">
-        <input type="text" class="d-none" name="scope" value="{{ $scope }}"/>
+        <input type="text" class="d-none" name="scope" value="{{ $scope }}" />
         <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="aggregate" name="aggregate"
-                onclick="window.location.replace('{{ route('totals', ['scope' => $scope, 'aggregate' => !$aggregate]) }}')"
+                onclick="window.location.replace('{{ route('totals', ['scope' => $scope, 'aggregate' => !$aggregate, 'from' => $from, 'to' => $to]) }}')"
                 {{ $aggregate ? 'checked' : '' }} />
             <label for="aggregate" class="form-check-label">Aggregate</label>
         </div>
@@ -97,7 +97,7 @@
     <button type="submit" class="btn btn-primary float-right" data-toggle="modal" data-target="#sendReportModal">Send as
         report</button>
 
-    <table class="table table-hover table-striped">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th scope="col">Incident Number</th>
@@ -111,8 +111,14 @@
                 <td></td>
                 <th scope="row">{{ $totalHours . ':' . sprintf('%02d', $totalMinutes) }}</th>
             </tr>
+
+            @php
+                $i = 0;
+            @endphp
+
             @foreach ($tasks as $incident => $details)
-                <tr>
+                <tr style="cursor: pointer; {!! $i % 2 === 1 ? 'background-color: var(--dark);' : '' !!}" data-toggle="collapse"
+                    href=".{{ $details['incident']['incident_number'] }}Task">
                     @if ($details['incident']['incident_number'] !== 'Miscellaneous')
                         <td><a
                                 href="https://itsm.asus.com/apps/#/IncidentConsoleDetail/{{ $details['incident']['incident_number'] }}">{{ $details['incident']['incident_number'] }}</a>
@@ -123,6 +129,18 @@
                     <td>{{ $details['description'] }}</td>
                     <td>{{ $details['hours'] . ':' . $details['minutes'] }}</td>
                 </tr>
+                @if ($aggregate)
+                    @foreach ($details['tasks'] as $task)
+                        <tr class="collapse table-secondary {{ $details['incident']['incident_number'] }}Task">
+                            <td></td>
+                            <td>{{ $task['description'] }}</td>
+                            <td>{{ $task->getHours() . ':' . $task->getMinutes() }}</td>
+                        </tr>
+                    @endforeach
+                @endif
+                @php
+                    $i++;
+                @endphp
             @endforeach
         </tbody>
     </table>

@@ -16,8 +16,7 @@ class AuthController extends Controller
 
     public function postLogin(Request $request)
     {
-        if (!\Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')], true))
-        {
+        if (!\Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')], true)) {
             return back()->withErrors('Invalid credentials.');
         }
 

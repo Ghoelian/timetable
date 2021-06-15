@@ -24,6 +24,9 @@ class HeadersMiddleware
         $response->headers->set('Referrer-Policy', 'no-referrer');
         $response->headers->set('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0,post-check=0, pre-check=0,no-cache, private');
         $response->headers->set('Strict-Transport-Security', 'max-age=31536000');
+        $response->headers->set('Cross-Origin-Embedder-Policy', 'require-corp');
+        $response->headers->set('Cross-Origin-Opener-Policy', 'same-origin');
+        $response->headers->set('Cross-Origin-Resource-Policy', 'same-site');
 
         return $response;
     }

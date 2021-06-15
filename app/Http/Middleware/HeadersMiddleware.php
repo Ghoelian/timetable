@@ -18,7 +18,7 @@ class HeadersMiddleware
     {
         $response = $next($request);
 
-        $response->headers->set('Content-Security-Policy', "default-src https: 'self'; script-src https: 'self' 'unsafe-inline' 'unsafe-eval'; style-src https: 'self' 'unsafe-inline'; img-src https: 'self' data:; font-src https: 'self'; connect-src https: 'self'; media-src https: 'self'; object-src https: 'self'; child-src https: 'self'; frame-src https: 'self'; frame-ancestors https: 'self'; form-action https: 'self' *.asus.com; upgrade-insecure-requests; block-all-mixed-content;");
+        $response->headers->set('Content-Security-Policy', "default-src https: 'self'; script-src https: 'self'; style-src https: 'self'; img-src https: 'self' data:; font-src https: 'self'; connect-src https: 'self'; media-src https: 'self'; object-src https: 'self'; child-src https: 'self'; frame-src https: 'self'; frame-ancestors https: 'self'; form-action https: 'self'; upgrade-insecure-requests; block-all-mixed-content;");
         $response->headers->set('Permissions-Policy', 'execution-while-not-rendered=(self), execution-while-out-of-viewport=(self), fullscreen=(), sync-xhr=(), geolocation=(), midi=(), microphone=(), camera=(), magnetometer=(), gyroscope=(), payment=()');
         $response->headers->set('Pragma', 'no-cache');
         $response->headers->set('Referrer-Policy', 'no-referrer');

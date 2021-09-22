@@ -22,6 +22,7 @@ class HomeController extends Controller
         $taskLog = TaskLog::query()
             ->where('created_at', '>=', (new DateTime())->format('Y-m-d') . ' 00:00:00')
             ->where('created_at', '<=', (new DateTime())->format('Y-m-d') . ' 23:59:59')
+            ->orderBy('created_at', 'ASC')
             ->get();
 
         $incidents = Incident::query()

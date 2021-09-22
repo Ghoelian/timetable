@@ -65,6 +65,7 @@ class TotalsController extends Controller
         $tasks = TaskLog::query()
             ->where('created_at', '>=', $min)
             ->where('created_at', '<=', $max)
+            ->orderBy('created_at', 'ASC')
             ->with('incident')
             ->get();
 
@@ -168,6 +169,7 @@ class TotalsController extends Controller
         $tasks = TaskLog::query()
             ->where('created_at', '>=', $min)
             ->where('created_at', '<=', $max)
+            ->orderBy('created_at', 'ASC')
             ->with('incident')
             ->get();
 

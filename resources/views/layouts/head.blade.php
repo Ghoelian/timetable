@@ -22,14 +22,14 @@
     <script src="https://kit.fontawesome.com/faf5088e45.js" crossorigin="anonymous"></script>
     <script src="{{ asset('js/alert.js') }}"></script>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('icons/apple-touch-icon.png') }}" />
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('icons/favicon-32x32.png') }}" />
-    <link rel="icon" type="image/png" sizes="194x194" href="{{ asset('icons/favicon-194x194.png') }}" />
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('icons/android-chrome-192x192.png') }}" />
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('icons/favicon-16x16.png') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('icons/apple-touch-icon.webp') }}" />
+    <link rel="icon" type="image/webp" sizes="32x32" href="{{ asset('icons/favicon-32x32.webp') }}" />
+    <link rel="icon" type="image/webp" sizes="194x194" href="{{ asset('icons/favicon-194x194.webp') }}" />
+    <link rel="icon" type="image/webp" sizes="192x192" href="{{ asset('icons/android-chrome-192x192.webp') }}" />
+    <link rel="icon" type="image/webp" sizes="16x16" href="{{ asset('icons/favicon-16x16.webp') }}" />
     <link rel="manifest" href="{{ asset('site.webmanifest') }}" />
     <link rel="mask-icon" href="{{ asset('icons/safari-pinned-tab.svg') }}" color="#2b5797" />
-    <link rel="shortcut icon" href="{{ asset('icons/favicon.ico') }}" />
+    <link rel="icon" href="{{ asset('icons/favicon.ico') }}" />
 
     @stack('assets')
 

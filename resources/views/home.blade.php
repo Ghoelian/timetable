@@ -22,7 +22,7 @@
                             <select class="form-control" id="incident" name="incident" required>
                                 @foreach ($incidents as $incident)
                                     <option value="{{ $incident->id }}">{{ $incident->incident_number }} -
-                                        {{ $incident->description }} ({{ $incident->status->name }})</option>
+                                        {{ $incident->description }}</option>
                                 @endforeach
                             </select>
                         </div>
